@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_width="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="200dp"
+    android:layout_marginRight="5dp"
+    android:outlineAmbientShadowColor="@color/cardview_shadow_start_color"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/colorAccent"
+        android:text="9009"
+        android:textColor="#FFFFFF">
+
+    </TextView>
+</androidx.cardview.widget.CardView>
