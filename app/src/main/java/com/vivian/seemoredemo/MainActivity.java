@@ -1,10 +1,12 @@
-package com.vivian.seemore;
+package com.vivian.seemoredemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.vivian.seemore.SeeMoreAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
         initSeeMoreRecyclerView();
-
     }
-
 
     void initSeeMoreRecyclerView(){
         mRecyclerView = findViewById(R.id.recyclerview);

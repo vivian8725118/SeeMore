@@ -15,9 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vivian.seemore.PathDrawable;
-import com.vivian.seemore.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +24,7 @@ public abstract class SeeMoreAdapter<T> extends RecyclerView.Adapter {
     int TYPE_ITEM = 1;
 
     public List<T> mList = new ArrayList<>();
-    Context mContext;
+    public Context mContext;
 
     public SeeMoreAdapter(Context context) {
         this.mContext = context;
@@ -80,7 +77,8 @@ public abstract class SeeMoreAdapter<T> extends RecyclerView.Adapter {
 
     boolean isSeeMoreHasVisibleRect(View seeMore) {
         seeMore.getLocationOnScreen(location);
-        Log.e("seemore","location x:"+location[0]);
+        Log.e("seemore", "location x:" + location[0]);
+        Log.e("seemore", "isSeeMoreHasVisibleRect:" + (location[0] > 0));
         return location[0] > 0;
     }
 
@@ -96,11 +94,13 @@ public abstract class SeeMoreAdapter<T> extends RecyclerView.Adapter {
         parent.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                Log.e("seemore", "event.getAction:" + event.getAction());
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         isFingerUp = true;
                         if (isSeeMoreHasVisibleRect(vh.itemView)) {
                             vh.hide();
+                            Log.e("seemore", "执行了  vh.hide();");
                         }
                         break;
                     default:
@@ -116,22 +116,33 @@ public abstract class SeeMoreAdapter<T> extends RecyclerView.Adapter {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && needHide) {
+                Log.e("seemore", "onScrollStateChanged:" + newState);
+
+                Log.e("seemore", "isFingerUp" + isFingerUp);
+                Log.e("seemore", "needHide" + needHide);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && needHide&&isSeeMoreHasVisibleRect(vh.itemView)) {
                     vh.hide();
+                    Log.e("seemore", "vh.hide()");
                     needHide = false;
-                    if (isSeeMoreHasVisibleRect(vh.itemView) && isNeedLoad(vh.itemView)) {
+                    if (isNeedLoad(vh.itemView)) {
                         load();
                     }
                     isFingerUp = true;
                 } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING) {
                     needHide = true;
                     isFingerUp = false;
+                    Log.e("seemore", "needHide" + needHide);
+//                    Log.e("seemore", "isFingerUp" + isFingerUp);
+                }else{
+                    needHide = false;
+                    isFingerUp = true;
                 }
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                Log.e("seemore", "onScrolled");
                 vh.itemView.getLocalVisibleRect(rect);
                 if (!isSeeMoreHasVisibleRect(vh.itemView)) {
                     return;

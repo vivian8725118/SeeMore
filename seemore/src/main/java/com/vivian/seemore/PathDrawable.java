@@ -22,7 +22,7 @@ public class PathDrawable extends Drawable {
 
     public PathDrawable() {
         mPaint = new Paint();
-        mPaint.setColor(0xffF8F9F9);
+        mPaint.setColor(0xffe8e9e9);
         mPaint.setAntiAlias(true);
         mPath = new Path();
     }
